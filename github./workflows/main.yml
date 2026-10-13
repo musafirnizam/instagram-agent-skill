@@ -1,0 +1,17 @@
+name: Instagram Agent Workflow
+on: [push]
+jobs:
+  run-agents:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - name: Install dependencies
+      run: npm install
+    - name: Run Agent Skills
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: node src/index.js
